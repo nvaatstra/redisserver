@@ -3,7 +3,6 @@ package server
 import (
 	"bufio"
 	"net"
-	"os"
 
 	"github.com/nvaatstra/redisserver/pkg/commands"
 	"github.com/nvaatstra/redisserver/pkg/datatypes"
@@ -55,11 +54,6 @@ func (s *Server) Run() {
 	}
 }
 
-// Kill stops the server (not gracefully - used for testcases)
-func (s *Server) Kill() {
-	os.Exit(0)
-}
-
 func (s *Server) handleConnection(conn net.Conn, dc chan<- dcOp) {
 	// Grab scanner to read from the connection
 	scanner := bufio.NewScanner(conn)
@@ -69,7 +63,7 @@ func (s *Server) handleConnection(conn net.Conn, dc chan<- dcOp) {
 		// Grab RESP compatible command
 		respCmd, err := getRESPCommand(scanner)
 		if err != nil {
-			conn.Write([]byte(datatypes.NewError("ERR", err.Error()).Output()))
+			writeOutput(conn, datatypes.NewError("ERR", err.Error()))
 			continue
 		}
 
