@@ -13,6 +13,7 @@ ok      github.com/nvaatstra/redisserver/pkg/commands   0.002s  coverage: 90.5% 
 ok      github.com/nvaatstra/redisserver/pkg/server     2.004s  coverage: 76.5% of statements
 CGO_ENABLED=0 go build -o bin/redis_server ./cmd/server/
 ```
+Note: server/server_test.go currently has a port hardcoded on which it spawns an instance of the server. This is ofcourse not ideal and should be dynamically allocated at runtime.
 
 ### Build + Test & Run
 Run test & build + start server with `make run`
