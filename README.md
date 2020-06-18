@@ -27,3 +27,18 @@ ok      github.com/nvaatstra/redisserver/pkg/server     2.005s  coverage: 76.5% 
 CGO_ENABLED=0 go build -o bin/redis_server ./cmd/server/
 bin/redis_server -addr=127.0.0.1:1234
 ```
+
+### Redis CLI
+Test using the Redis CLI (redis-cli). If using `make run` to start the server, you can connect with `redis-cli -h 127.0.0.1 -p 1234`
+
+Sample output from the Redis CLI against this server:
+```
+[vagrant@gonew ~]# redis-cli -h 127.0.0.1 -p 1234
+127.0.0.1:1234> SET mykey myvalue
+OK
+127.0.0.1:1234> GET mykey
+myvalue
+127.0.0.1:1234> GET mykey2
+(nil)
+127.0.0.1:1234>
+```
